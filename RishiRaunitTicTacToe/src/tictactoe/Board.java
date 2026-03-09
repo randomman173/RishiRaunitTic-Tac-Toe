@@ -36,7 +36,35 @@ public class Board
     //valid if it resembles a 3x3 board that contains only E, X, O
     public boolean isValidBoardFile()
     {
+    	try
+    	{
+    		File file = new File("src/tictactoe/"+this.filename);
+    		Scanner scanner = new Scanner(file);
+    		int xCount = 0;
+			int oCount = 0;
+    		while(scanner.hasNextLine())
+    		{
+    			String line = scanner.nextLine().trim();
+    			if(line.matches("X"))
+    				xCount++;
+    			if(line.matches("O"))
+    				oCount++;
+    			if(!line.matches("[EXO],[EXO],[EXO]"))
+    			{
+    				scanner.close();
+    				return true;
+    			}
+    		}
+    		
+    		scanner.close();
+    		return xCount == oCount || oCount == xCount + 1;
+    	}
     	
+    	catch(Exception error)
+    	{
+    		error.printStackTrace();
+    		return false; 
+    	}
     
     }
     
