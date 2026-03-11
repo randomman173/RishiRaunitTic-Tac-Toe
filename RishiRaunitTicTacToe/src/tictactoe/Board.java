@@ -19,7 +19,17 @@ public class Board
     	 //set the file name
        //if the board is valid then create the 3x3 grid
        //and load the board from the file
+   
+    	this.filename = filename;
+    	
+    	if(isValidBoardFile())
+    	{
+    		grid = new char [3][3];
+    		loadBoardFromFile();
+    	}
+    
     }
+    	
     
     //loads the grid with the file contents - [5 points]
     public void loadBoardFromFile()
@@ -178,9 +188,10 @@ public class Board
     	System.out.println(b.isValidBoardFile());
     	b.createRandomBoard();
     	b.printGrid();
-    	b.saveBoardToFile();
-    	b.loadBoardFromFile();
-    	System.out.println();
-    	b.printGrid();
+    	System.out.println(b.isValidBoardFile());
+    	//b.saveBoardToFile();
+    	//b.loadBoardFromFile();
+    	//System.out.println();
+    	//b.printGrid();
     }
 }
