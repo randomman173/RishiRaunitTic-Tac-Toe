@@ -29,8 +29,32 @@ public class Board
         //and populate the grid with the board values
         //remember to close the scanner afterwards 
         //use isValidBoard method as a guide
-    	
-    }
+    	//loads the grid with the file contents - [5 points]
+    	try
+    	{
+    		File file = new File("src/tictactoe/" + this.filename);
+    		Scanner scanner = new Scanner(file);
+    			
+    		int row = 0;
+    		while(scanner.hasNextLine())
+    		{
+    			String line = scanner.nextLine().trim();
+    			String[] lineArray = line.split(",");
+    				
+    			for(int col = 0; col < lineArray.length; col++)
+    			{
+    				grid[row][col] = lineArray[col].charAt(0);
+    			}
+    				row++;
+    			}
+    			
+    			scanner.close();
+    		}
+    		catch(Exception error)
+    		{
+    			error.printStackTrace();
+    		}
+    	}
 
     
     //valid if it resembles a 3x3 board that contains only E, X, O
@@ -52,9 +76,13 @@ public class Board
     			if(!line.matches("[EXO],[EXO],[EXO]"))
     			{
     				scanner.close();
-    				return true;
+    				return false;
     			}
+    		String[] lineArray = line.split(",");
+    		
     		}
+    		
+    		
     		
     		scanner.close();
     		return xCount == oCount || oCount == xCount + 1;
@@ -65,7 +93,7 @@ public class Board
     		error.printStackTrace();
     		return false; 
     	}
-    
+    	String[] lineArray = line.split(",");
     }
     
     
