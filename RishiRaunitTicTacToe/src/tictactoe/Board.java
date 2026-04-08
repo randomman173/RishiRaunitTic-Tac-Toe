@@ -42,6 +42,9 @@ public class Board
     
     
     public void setCell(int row, int col, char player)
+    {
+    	  grid[row][col] = player; 
+    }
 
     
     
