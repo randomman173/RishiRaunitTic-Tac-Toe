@@ -44,7 +44,16 @@ public class Board
     public void setCell(int row, int col, char player)
     {
     	  grid[row][col] = player; 
+    	  Board board = new Board("src/tictactoe/board.csv");
+    	  board.saveBoardToFile();
+    	  
+    
+    
+    
     }
+    
+    
+    
 
     
     
