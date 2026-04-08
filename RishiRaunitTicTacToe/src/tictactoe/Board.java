@@ -61,7 +61,8 @@ public class Board
     
     public void setGrid(char[][] newGrid)
     {
-    	
+    	grid = newGrid;
+    	this.saveBoardToFile();
     }
 
 
