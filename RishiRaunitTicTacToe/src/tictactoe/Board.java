@@ -31,6 +31,41 @@ public class Board
     }
     	
     
+    public char getCell(int row, int col)
+
+   
+    
+    
+    
+    
+    
+    public void setCell(int row, int col, char player)
+
+    
+    
+    
+    
+    
+    
+    
+    public char[][] getGrid()
+
+    
+    
+    
+    
+    
+    
+    public void setGrid(char[][] newGrid)
+
+
+    
+    
+    
+    
+    
+    
+    
     //loads the grid with the file contents - [5 points]
     public void loadBoardFromFile()
     {
@@ -103,7 +138,7 @@ public class Board
     		error.printStackTrace();
     		return false; 
     	}
-    	String[] lineArray = line.split(",");
+    	
     }
     
     
@@ -195,3 +230,5 @@ public class Board
     	//b.printGrid();
     }
 }
+
+
