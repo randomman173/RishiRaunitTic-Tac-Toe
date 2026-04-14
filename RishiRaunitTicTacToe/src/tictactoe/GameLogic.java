@@ -4,34 +4,56 @@ package tictactoe;
 public class GameLogic 
 {  
 	 
-	public boolean checkWin(Board board, char player)
+	public boolean checkWin(Board board, char player) 
 	{
 		char[][] g = board.getGrid();
-	    int n = g.length;
+		for (int i = 0; i < g.length; i++) 
+		{
+			for (int j = 0; j < g[0].length; j++) {
+				if (g[i][j] == 'E')
+					return false;
+				else if (j == 0)
+					if (g[i][j] == player && g[i][j + 1] == player && g[i][j + 2] == player) {
+						return true;
+				} else if (i == 0)
+						if (g[i][j] == player && g[i + 1][j] == player && g[i + 2][j] == player) {
+							return true;
+				} else if (i == 0 && j == 0) {
+							if (g[i][j] == player && g[i + 1][j + 1] == player && g[i + 2][j + 2] == player) {
+								return true;
+							}
+				} else if (i == 0 && j == 2) {
+							if (g[i][j] == player && g[i + 1][j - 1] == player && g[i + 2][j - 2] == player) {
+								return true;
+							}
+						}
+		
 
-	    for (int i = 0; i < n; i++) 
+			}
+		
+			
+		}
+		return false;
+	}
+	
+	public boolean isDraw(Board board)
+	{
+		char[][] g = board.getGrid();
+		
+		for (int i = 0; i < g.length; i++) 
 	    {
-	        boolean row = true, col = true;
-
-	        for (int j = 0; j < n; j++) {
-	            if (g[i][j] != player) row = false;
-	            if (g[j][i] != player) col = false;
+	        for (int j = 0; j < g[0].length; j++) 
+	        {
+	           if(g[i][j] == 'E') 
+	        	   return false;
+	           
 	        }
-
-	        if (row || col) return true;
 	    }
-
-	    boolean d1 = true, d2 = true;
-	    for (int i = 0; i < n; i++) {
-	        if (g[i][i] != player) d1 = false;
-	        if (g[i][n - 1 - i] != player) d2 = false;
-	    }
-
-	    return d1 || d2;
+		return checkWin(board, 'X') || checkWin(board, 'O');
 	}
 	
 
-	}
+}
 
 
 
