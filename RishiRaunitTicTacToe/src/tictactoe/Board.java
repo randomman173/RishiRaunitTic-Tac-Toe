@@ -37,10 +37,6 @@ public class Board
     }
    
     
-    
-    
-    
-    
     public void setCell(int row, int col, char player)
     {
     	  grid[row][col] = player; 
@@ -54,24 +50,12 @@ public class Board
     }
 
     
-    
-    
-    
-    
-    
     public void setGrid(char[][] newGrid)
     {
     	grid = newGrid;
     	this.saveBoardToFile();
     }
 
-
-    
-    
-    
-    
-    
-    
     
     //loads the grid with the file contents - [5 points]
     public void loadBoardFromFile()
@@ -192,6 +176,7 @@ public class Board
     	}
     	
     }
+    
     
     //create a random board
     public void createRandomBoard()
