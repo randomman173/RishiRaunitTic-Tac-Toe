@@ -6,35 +6,28 @@ public class GameLogic
 	 
 	public boolean checkWin(Board board, char player) 
 	{
-		char[][] g = board.getGrid();
-		for (int i = 0; i < g.length; i++) 
+		for(int i = 0; i < 2; i++)
 		{
-			for (int j = 0; j < g[0].length; j++) {
-				if (g[i][j] == 'E')
-					return false;
-				else if (j == 0)
-					if (g[i][j] == player && g[i][j + 1] == player && g[i][j + 2] == player) {
-						return true;
-				} else if (i == 0)
-						if (g[i][j] == player && g[i + 1][j] == player && g[i + 2][j] == player) {
-							return true;
-				} else if (i == 0 && j == 0) {
-							if (g[i][j] == player && g[i + 1][j + 1] == player && g[i + 2][j + 2] == player) {
-								return true;
-							}
-				} else if (i == 0 && j == 2) {
-							if (g[i][j] == player && g[i + 1][j - 1] == player && g[i + 2][j - 2] == player) {
-								return true;
-							}
-						}
-		
-
+			if(board.getCell(i,0) == player && board.getCell(i,1) == player && board.getCell(i,2) == player)
+			{
+				return true;
 			}
-		
-			
+		}
+		for(int j = 0; j < 2; j++)
+		{
+			if(board.getCell(0,j) == player && board.getCell(1,j) == player && board.getCell(2,j) == player)
+			{
+				return true;
+			}
+		}
+		if( (board.getCell(0,0) == player && board.getCell(1,1) == player && board.getCell(2,2) == player) ||
+        (board.getCell(0,2) == player && board.getCell(1,1) == player && board.getCell(2,0) == player)) 
+		{
+			return true;
 		}
 		return false;
 	}
+	
 	
 	public boolean isDraw(Board board)
 	{
@@ -49,9 +42,14 @@ public class GameLogic
 	           
 	        }
 	    }
-		return checkWin(board, 'X') || checkWin(board, 'O');
+		return !checkWin(board, 'X') || !checkWin(board, 'O');
 	}
 	
+	public boolean isGameOver(Board board)
+	{
+		GameLogic game = new GameLogic();
+		return game.checkWin(board, 'X') || game.checkWin(board, 'O') || game.isDraw(board);
+	}
 
 }
 
