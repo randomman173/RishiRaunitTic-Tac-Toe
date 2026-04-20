@@ -43,7 +43,7 @@ public class GameLogic
 	           
 	        }
 	    }
-		return !checkWin(board, 'X') || !checkWin(board, 'O');
+		return !checkWin(board, 'X') && !checkWin(board, 'O');
 	}
 	
 	public boolean isGameOver(Board board)
@@ -51,10 +51,60 @@ public class GameLogic
 		GameLogic game = new GameLogic();
 		return game.checkWin(board, 'X') || game.checkWin(board, 'O') || game.isDraw(board);
 	}
+	
+	public char getCurrentPlayer(Board board)
+	{
+		int countX = 0;
+		int countO = 0;
+		for(int row = 0; row < 3; row++)
+			for(int col = 0; col < 3; col++)
+			{
+				if(board.getCell(row, col) == 'X')
+				{
+					countX++;
+				}
+				else if(board.getCell(row, col) == '0')
+				{
+					countO++;
+				}
+			}
+		if(countX == countO)
+		{
+			return 'X'; 
+		}
+		else
+		{
+			return '0'; 
+		}
+
+			
+	}
+	
+	
 
 }
 
+public boolean makeMove(Board board, int row, int col)
+{
+   
+    if (row < 0 || row >= board.getCell().length || 
+        col < 0 || col >= board.getCell()[0].length)
+    {
+        return false;
+    }
 
+    
+    if (board.getCell(row, col) != '-')
+    {
+        return false;
+    }
+
+   
+    board.getCell()[row][col] = currentPlayer;
+
+    return true;
+
+}
 
 
 
