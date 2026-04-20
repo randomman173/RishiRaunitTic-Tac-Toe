@@ -6,14 +6,14 @@ public class GameLogic
 	 
 	public boolean checkWin(Board board, char player) 
 	{
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 3; i++)
 		{
 			if(board.getCell(i,0) == player && board.getCell(i,1) == player && board.getCell(i,2) == player)
 			{
 				return true;
 			}
 		}
-		for(int j = 0; j < 2; j++)
+		for(int j = 0; j < 3; j++)
 		{
 			if(board.getCell(0,j) == player && board.getCell(1,j) == player && board.getCell(2,j) == player)
 			{
@@ -48,8 +48,7 @@ public class GameLogic
 	
 	public boolean isGameOver(Board board)
 	{
-		GameLogic game = new GameLogic();
-		return game.checkWin(board, 'X') || game.checkWin(board, 'O') || game.isDraw(board);
+		return this.checkWin(board, 'X') || this.checkWin(board, 'O') || this.isDraw(board);
 	}
 	
 	public char getCurrentPlayer(Board board)
@@ -63,7 +62,7 @@ public class GameLogic
 				{
 					countX++;
 				}
-				else if(board.getCell(row, col) == '0')
+				else if(board.getCell(row, col) == 'O')
 				{
 					countO++;
 				}
@@ -74,7 +73,7 @@ public class GameLogic
 		}
 		else
 		{
-			return '0'; 
+			return 'O'; 
 		}
 
 			
@@ -89,8 +88,11 @@ public class GameLogic
 			if(board.getCell(row, col) == 'E')
 			{
 				board.setCell(row, col, player);
+				return true;
 			}
+			return false;
 		}
+		return false;
 			
 		
 	}
@@ -98,31 +100,6 @@ public class GameLogic
 	
 
 }
-
-{
-   
-    if (row < 0 || row >= board.getCell().length || 
-        col < 0 || col >= board.getCell()[0].length)
-    {
-        return false;
-    }
-
-    
-    if (board.getCell(row, col) != '-')
-    {
-        return false;
-    }
-
-   
-    board.getCell()[row][col] = currentPlayer;
-
-    return true;
-
-}
-
-
-
-
 
 
 
