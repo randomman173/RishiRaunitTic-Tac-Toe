@@ -81,10 +81,24 @@ public class GameLogic
 	}
 	
 	
+	public boolean makeMove(Board board, int row, int col)
+	{
+		if(board.isValidBoardFile() && row >= 0 && row <= 2 && col >= 0 && col <= 2)
+		{
+			char player = this.getCurrentPlayer(board);
+			if(board.getCell(row, col) == 'E')
+			{
+				board.setCell(row, col, player);
+			}
+		}
+			
+		
+	}
+
+	
 
 }
 
-public boolean makeMove(Board board, int row, int col)
 {
    
     if (row < 0 || row >= board.getCell().length || 
