@@ -29,7 +29,7 @@ public class GameLogic
 		return false;
 	}
 	
-	
+	//check
 	public boolean isDraw(Board board)
 	{
 		char[][] g = board.getGrid();
