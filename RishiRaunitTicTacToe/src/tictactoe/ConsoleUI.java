@@ -102,9 +102,29 @@ public class ConsoleUI
     public void showResult()
     {
         if (logic.checkWin(board, 'X'))
-            System.out.println("*** Player X wins! Congratulations! ***");
+        	System.out.println("*** Player X wins! Congratulations! ***"
+            		+ "                     ___________\r\n"
+            		+ "                    '._==_==_=_.'\r\n"
+            		+ "                    .-\\\\:      /-.\r\n"
+            		+ "                   | (|:.     |) |\r\n"
+            		+ "                    '-|:.     |-'\r\n"
+            		+ "                      \\\\::.    /\r\n"
+            		+ "                       '::. .'\r\n"
+            		+ "                         ) (\r\n"
+            		+ "                       _.' '._\r\n"
+            		+ "                  `\\\"\\\"\\\"\\\"\\\"\\\"\\\"`" );
         else if (logic.checkWin(board, 'O'))
-            System.out.println("*** Player O wins! Congratulations! ***");
+            System.out.println("*** Player O wins! Congratulations! ***"
+            		+ "                     ___________\r\n"
+            		+ "                    '._==_==_=_.'\r\n"
+            		+ "                    .-\\\\:      /-.\r\n"
+            		+ "                   | (|:.     |) |\r\n"
+            		+ "                    '-|:.     |-'\r\n"
+            		+ "                      \\\\::.    /\r\n"
+            		+ "                       '::. .'\r\n"
+            		+ "                         ) (\r\n"
+            		+ "                       _.' '._\r\n"
+            		+ "                  `\\\"\\\"\\\"\\\"\\\"\\\"\\\"`" );
         else
             System.out.println("*** It's a draw! Well played by both! ***");
     }
