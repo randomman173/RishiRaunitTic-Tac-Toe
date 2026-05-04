@@ -45,6 +45,9 @@ public class SwingUI extends JFrame {
     private Clip winClip;
     private Clip drawClip;
     private Clip backgroundClip;
+    private Timer flashTimer;
+    private int flashCount = 0;
+    private boolean flashOn = false;
 
 
     
@@ -356,6 +359,7 @@ public class SwingUI extends JFrame {
 
             if (!controller.isDraw()) {
                 playWinSound();
+                startFlashingLights();
                 startConfetti();
             } else {
                 showBigMessage(controller.getStatusMessage());
@@ -429,6 +433,50 @@ public class SwingUI extends JFrame {
         resetTimer.setRepeats(false);
         resetTimer.start();
     }
+    
+    private void startFlashingLights() {
+        stopFlashingLights();
+
+        flashCount = 0;
+        flashOn = false;
+
+        flashTimer = new Timer(150, e -> {
+            if (flashOn) {
+                getContentPane().setBackground(backgroundColor);
+                topPanel.setBackground(backgroundColor);
+                centerPanel.setBackground(backgroundColor);
+                bottomPanel.setBackground(backgroundColor);
+                boardPanel.setBackground(boardColor);
+            } else {
+                Color flashColor = new Color(255, 255, 120);
+                getContentPane().setBackground(flashColor);
+                topPanel.setBackground(flashColor);
+                centerPanel.setBackground(flashColor);
+                bottomPanel.setBackground(flashColor);
+                boardPanel.setBackground(new Color(255, 190, 60));
+            }
+
+            flashOn = !flashOn;
+            flashCount++;
+
+            repaint();
+
+            if (flashCount >= 14) {
+                stopFlashingLights();
+                refreshTheme();
+            }
+        });
+
+        flashTimer.start();
+    }
+
+    private void stopFlashingLights() {
+        if (flashTimer != null) {
+            flashTimer.stop();
+            flashTimer = null;
+        }
+    }
+
 
     private void refreshBoard() {
         boolean gameOver = controller.isGameOver();
@@ -441,13 +489,18 @@ public class SwingUI extends JFrame {
 
                 if (cell == 'E') {
                     button.setText("");
-                    ((CheckerButton) button).setPiece('E', xColor, oColor);
+                    ((CheckerButton) button).setPiece('E', xColor, oColor, "");
                     button.setEnabled(!gameOver && !waitingForComputer);
                     button.setBackground(buttonColor);
                 } else {
                     button.setText("");
                     button.setEnabled(true);
-                    ((CheckerButton) button).setPiece(cell, xColor, oColor);
+                    ((CheckerButton) button).setPiece(
+                    	    cell,
+                    	    xColor,
+                    	    oColor,
+                    	    controller.getTokenLetter(cell)
+                    	);
 
                     if (isWinningCell(row, col, winningCells)) {
                         button.setBackground(winningColor);
@@ -1119,6 +1172,30 @@ class SwingGameController {
 
         return null;
     }
+    
+    public String getTokenLetter(char piece) {
+        String name;
+
+        if (piece == 'X') {
+            name = playerXName;
+        } else if (piece == 'O') {
+            name = playerOName;
+        } else {
+            return "";
+        }
+
+        if (name.length() == 0) {
+            return "";
+        }
+
+        if (name.length() == 1) {
+            return name.substring(0, 1).toUpperCase();
+        }
+
+        return name.substring(0, 2).toUpperCase();
+    }
+
+
 
     private int[] findFirstOpenCell() {
         for (int row = 0; row < 3; row++) {
@@ -1372,16 +1449,19 @@ class TrophyPanel extends JPanel {
 }
 
 class CheckerButton extends JButton {
-    private char piece = 'E';
+	private char piece = 'E';
+	private String tokenText = "";
     private Color xColor = Color.ORANGE;
     private Color oColor = Color.BLUE;
 
-    public void setPiece(char piece, Color xColor, Color oColor) {
+    public void setPiece(char piece, Color xColor, Color oColor, String tokenText) {
         this.piece = piece;
         this.xColor = xColor;
         this.oColor = oColor;
+        this.tokenText = tokenText;
         repaint();
     }
+
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -1413,9 +1493,9 @@ class CheckerButton extends JButton {
         g2.drawOval(x + 6, y + 6, size - 12, size - 12);
 
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.BOLD, size / 2));
+        g2.setFont(new Font("Arial", Font.BOLD, size / 3));
 
-        String text = String.valueOf(piece);
+        String text = tokenText;
         int textWidth = g2.getFontMetrics().stringWidth(text);
         int textHeight = g2.getFontMetrics().getAscent();
 
