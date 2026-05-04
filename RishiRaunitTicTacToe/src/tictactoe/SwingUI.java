@@ -939,7 +939,7 @@ class SwingGameController {
             return;
         }
 
-        int[] move;
+        int[] move;//e
 
         if (aiDifficulty.equals("Easy")) {
             move = findRandomOpenCell();
